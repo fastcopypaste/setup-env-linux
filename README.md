@@ -46,7 +46,6 @@ sudo nano /etc/systemd/system/vncserver@.service
 ```
 Paste this content:
 ```
-/etc/systemd/system/vncserver@.service 
 [Unit]
 Description=Start TightVNC server at startup
 After=syslog.target network.target
@@ -66,6 +65,17 @@ ExecStop=/usr/bin/vncserver -kill :%i
 WantedBy=multi-user.target
 
 ```
+where:
+
+{username} is your username, you can get it with ```echo $USER```
+
+{group} is your group, you can get a list of groups that your user current belong to by command:
+```
+groups {$USER}
+```
+You should choose the groups with privilege enough to run our `vncserver` in startup, for me it is: `google-sudoers`.
+
+It is default group in Google Cloud and can run any `sudo` command without password.
 
 Then:
 
